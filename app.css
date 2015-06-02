@@ -1,0 +1,17 @@
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+.nav-list .md-button
+{
+	color: inherit;
+	text-align: left;
+	width: 100%;
+}
+
+.nav-list .selected
+{
+	color: #03a9f4;
+}
