@@ -1,1 +1,38 @@
-<h1>Controller</h1>
+<!--layout-margin layout-padding-->
+<md-content class="control-main" layout-margin layout-padding>
+	<section layout="row" layout-align="center center">
+		<!--<md-button class="md-raised md-warn">Power</md-button>-->
+		<md-switch ng-model="ControlState.Power" aria-label="Power" class="md-warn">
+			Power
+		</md-switch>
+	</section>
+	<section layout="row" layout-align="center center">
+		<div class="label">Ranges</div>
+		
+		<div layout="column" layout-align="space-around center">
+			<md-button class="md-raised" ng-disabled="!ControlState.Power">Speed +</md-button>
+			<md-button class="md-raised" ng-disabled="!ControlState.Power">Speed -</md-button>
+		</div>
+		
+		<div layout="column" layout-align="space-around center">
+			<md-button class="md-raised" ng-disabled="!ControlState.Power">Temp +</md-button>
+			<md-button class="md-raised" ng-disabled="!ControlState.Power">Temp -</md-button>
+		</div>
+	</section>
+	
+	<section layout="row" layout-align="center center">
+		<div class="label">Mode</div>
+		
+		<md-radio-group ng-model="ControllerState.Mode">
+			<md-radio-button ng-value="'Cool'" ng-disabled="!ControlState.Power">
+				Cool
+			</md-radio-button>
+			<md-radio-button ng-value="'EnergySaver'" ng-disabled="!ControlState.Power">
+				Energy saver
+			</md-radio-button>
+			<md-radio-button ng-value="'Fan'" ng-disabled="!ControlState.Power">
+				Fan
+			</md-radio-button>
+		</md-radio-group>
+	</section>
+</md-content>

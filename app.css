@@ -1,3 +1,4 @@
+/* from muppets material sample app */
 .md-toolbar-tools h1
 {
 	font-size: inherit;
@@ -16,3 +17,23 @@
 {
 	color: #03a9f4;
 }
+
+/* from material buttons sample page */
+.control-main section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px; }
+.control-main md-content {
+  margin-right: 7px; }
+.control-main section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px; }
+.control-main .label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54; }

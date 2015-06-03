@@ -86,10 +86,25 @@ function($scope : IMainScope, $location: ng.ILocationService, $route: IAppRoutes
 /*
 Controller for the main button-pusher.
 */
-app.controller("ControllerController", ["$scope",
-function($scope)
+enum ControllerMode
 {
+	Unknown,
+	Cool,
+	EnergySaver,
+	Fan
+}
 
+interface IControllerScope extends ng.IScope
+{
+	State: {
+		Power: boolean,
+		Mode: ControllerMode
+	}
+}
+app.controller("ControllerController", ["$scope",
+function($scope: IControllerScope)
+{
+	$scope.State = { Power: false, Mode: ControllerMode.Cool };
 }]);
 
 /*
