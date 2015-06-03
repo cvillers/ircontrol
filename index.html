@@ -23,7 +23,7 @@
 				<md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
 					<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
 				</md-button>
-				<h1>{{PageTitle}}</h1>
+				<h1>{{CurrentPage.Title}}</h1>
 			</div>
 		</md-toolbar>
 		<!-- /Top toolbar -->
@@ -36,7 +36,7 @@
 				<md-list class="nav-list">
 					<md-list-item ng-repeat="link in NavLinks">
 					<!--<md-item-content>-->
-						<md-button ng-href="#/{{link.URL}}">{{link.Text}}</md-button>
+						<md-button ng-href="#/{{link.URL}}" ng-class="{'selected': link.URL == $parent.CurrentPage.ActiveURL}">{{link.Title}}</md-button>
 						<!--</md-item-content>-->
 					</md-list-item>
 				</md-list>

@@ -1,22 +1,47 @@
-var app = angular.module("IRControlApp", ["ngMaterial", "ngRoute"]);
+var app = angular.module("IRControlApp", ["ng", "ngMaterial", "ngRoute"]);
 
 var navLinks =
 [
-	{ Text: "Control", URL: "control" },
-	{ Text: "Schedule", URL: "schedule" }
+	{ Title: "Control", URL: "control", Template: "control.html", Controller: "ControllerController" },
+	{ Title: "Schedule", URL: "schedule", Template: "schedule.html", Controller: "ScheduleController" }
 ];
 
 app.config(["$routeProvider", function($routeProvider)
 {
-	$routeProvider.when("/control", { template: "Control buttons!" });
-	$routeProvider.when("/schedule", { template: "Scheduler!" });
-	$routeProvider.otherwise({ template: "Main!" });
+	angular.forEach(navLinks, function(link)
+	{
+		$routeProvider.when("/" + link.URL,
+			{
+				templateUrl: "templates/" + link.Template,
+				resolve: { PageDefinition: function() { return link } }
+			});
+	});
+
+	$routeProvider.otherwise("/control");
 }]);
 
-app.controller("MainController", ["$scope", "$mdSidenav", function($scope, $mdSidenav){
-	$scope.PageTitle = "Main";
-
+/*
+Controller for the outer layer of the page.
+*/
+app.controller("MainController", ["$scope", "$location", "$route", "$mdSidenav",
+function($scope, $location, $route, $mdSidenav)
+{
 	$scope.NavLinks = navLinks;
+
+	$scope.$on("$routeChangeSuccess", function()
+	{
+		$scope.CurrentPage =
+		{
+			Title: $route.current.locals.PageDefinition.Title,
+			ActiveURL: $location.path().replace(/^\//, "")
+		};
+	})
+
+	$scope.CurrentPage =
+	{
+		Title: "blah",//$route.current.CurrentPage.Title,
+		ActiveURL: $location.path().replace(/^\//, "")
+	};
 
 	$scope.toggleSidenav = function(menuId)
 	{
@@ -24,3 +49,20 @@ app.controller("MainController", ["$scope", "$mdSidenav", function($scope, $mdSi
 	};
 }]);
 
+/*
+Controller for the main button-pusher.
+*/
+app.controller("ControllerController", ["$scope",
+function($scope)
+{
+
+}]);
+
+/*
+Controller for the schedule configuration.
+*/
+app.controller("ScheduleController", ["$scope",
+function($scope)
+{
+
+}]);
