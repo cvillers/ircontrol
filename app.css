@@ -1,7 +1,8 @@
-.md-toolbar-tools h1 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: inherit;
+.md-toolbar-tools h1
+{
+	font-size: inherit;
+	font-weight: inherit;
+	margin: inherit;
 }
 
 .nav-list .md-button
