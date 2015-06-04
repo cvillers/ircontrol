@@ -18,6 +18,8 @@ var navLinks : PageDefinition[] =
 	{ Title: "Schedule", URL: "schedule", Template: "schedule.html", Controller: "ScheduleController" }
 ];
 
+app.constant("NavLinks", navLinks);
+
 app.config(["$routeProvider", function($routeProvider: ng.route.IRouteProvider)
 {
 	angular.forEach(navLinks, function(link : PageDefinition)
@@ -48,7 +50,3 @@ interface IAppRoutes extends ng.route.IRouteService
 {
 	current: IAppCurrentRoute;
 }
-
-
-
-

@@ -11,6 +11,7 @@ var navLinks = [
     { Title: "Control", URL: "control", Template: "control.html", Controller: "ControllerController" },
     { Title: "Schedule", URL: "schedule", Template: "schedule.html", Controller: "ScheduleController" }
 ];
+app.constant("NavLinks", navLinks);
 app.config(["$routeProvider", function ($routeProvider) {
         angular.forEach(navLinks, function (link) {
             $routeProvider.when("/" + link.URL, {

@@ -1,26 +1,34 @@
 /// <reference path="../angular.d.ts" />
+/// <reference path="../services/buttons.ts" />
 
 /*
 Controller for the main button-pusher.
 */
-enum ControllerMode
-{
-	Unknown,
-	Cool,
-	EnergySaver,
-	Fan
-}
 
 interface IControllerScope extends ng.IScope
 {
 	State: {
 		Power: boolean,
-		Mode: ControllerMode
-	}
+		Mode: FanMode
+	},
+	Buttons: { [ id: string ]: Button }
 }
 
-angular.module("IRControlApp").controller("ControllerController", ["$scope",
-function($scope: IControllerScope)
+angular.module("IRControlApp").controller("ControllerController", ["$scope", "buttonService",
+function($scope: IControllerScope, buttonService: IButtonService)
 {
-	$scope.State = { Power: false, Mode: ControllerMode.Cool };
+	var buttonRecords = buttonService.GetButtons();
+
+	console.dir(buttonRecords);
+
+	$scope.Buttons = {};
+
+	angular.forEach(buttonRecords, (br : Button) =>
+	{
+		$scope.Buttons[br.Id] = br;
+	});
+	
+	$scope.State = { Power: buttonService.GetPowerState(), Mode: buttonService.GetFanMode() };
+	
+	
 }]);
