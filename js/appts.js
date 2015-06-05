@@ -16,6 +16,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         angular.forEach(navLinks, function (link) {
             $routeProvider.when("/" + link.URL, {
                 templateUrl: "templates/" + link.Template,
+                controller: link.Controller,
                 resolve: { PageDefinition: function () { return link; } }
             });
         });

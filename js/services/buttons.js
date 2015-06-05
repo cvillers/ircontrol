@@ -18,8 +18,7 @@ var MockButtonService = (function () {
         this.fanMode = FanMode.Fan;
     }
     MockButtonService.prototype.GetButtons = function () {
-        return;
-        [
+        return [
             {
                 Id: "fan_speed_up",
                 Label: "Fan \u2191"
@@ -39,18 +38,20 @@ var MockButtonService = (function () {
         ];
     };
     MockButtonService.prototype.PushButton = function (button) {
-        this.$log.info("Pushed button " + button.Label);
+        this.$log.info("Push button " + button.Label);
     };
     MockButtonService.prototype.GetPowerState = function () {
         return this.powerState;
     };
     MockButtonService.prototype.SetPowerState = function (state) {
+        this.$log.debug("SetPowerState: transitioning to " + state);
         this.powerState = state;
     };
     MockButtonService.prototype.GetFanMode = function () {
         return this.fanMode;
     };
     MockButtonService.prototype.SetFanMode = function (mode) {
+        this.$log.debug("SetFanMode: transitioning to " + mode);
         this.fanMode = mode;
     };
     return MockButtonService;

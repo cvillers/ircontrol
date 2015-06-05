@@ -10,20 +10,20 @@
 		<div class="label">Ranges</div>
 		
 		<div layout="column" layout-align="space-around center">
-			<md-button class="md-raised" ng-disabled="!ControlState.Power">{{Buttons['fan_speed_up'].Label}}</md-button>
-			<md-button class="md-raised" ng-disabled="!ControlState.Power">Speed -</md-button>
+			<md-button class="md-raised" ng-click="PushButton('fan_speed_up')" ng-disabled="!ControlState.Power">{{Buttons['fan_speed_up'].Label}}</md-button>
+			<md-button class="md-raised" ng-click="PushButton('fan_speed_down')" ng-disabled="!ControlState.Power">Speed -</md-button>
 		</div>
 		
 		<div layout="column" layout-align="space-around center">
-			<md-button class="md-raised" ng-disabled="!ControlState.Power">Temp +</md-button>
-			<md-button class="md-raised" ng-disabled="!ControlState.Power">Temp -</md-button>
+			<md-button class="md-raised" ng-click="PushButton('temp_up')" ng-disabled="!ControlState.Power">Temp +</md-button>
+			<md-button class="md-raised" ng-click="PushButton('temp_down')" ng-disabled="!ControlState.Power">Temp -</md-button>
 		</div>
 	</section>
 	
 	<section layout="row" layout-align="center center">
 		<div class="label">Mode</div>
 		
-		<md-radio-group ng-model="ControllerState.Mode">
+		<md-radio-group ng-model="ControlState.Mode">
 			<md-radio-button ng-value="'Cool'" ng-disabled="!ControlState.Power">
 				Cool
 			</md-radio-button>

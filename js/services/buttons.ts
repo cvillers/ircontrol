@@ -43,8 +43,7 @@ class MockButtonService implements IButtonService
 	
 	public GetButtons(): Button[]
 	{
-		return
-		[
+		return [
 			{
 				Id: "fan_speed_up",
 				Label: "Fan \u2191"
@@ -66,7 +65,7 @@ class MockButtonService implements IButtonService
 	
 	public PushButton(button: Button): void
 	{
-		this.$log.info("Pushed button " + button.Label);
+		this.$log.info("Push button " + button.Label);
 	}
 	
 	public GetPowerState() : boolean
@@ -76,6 +75,7 @@ class MockButtonService implements IButtonService
 	
 	public SetPowerState(state: boolean)
 	{
+		this.$log.debug("SetPowerState: transitioning to " + state);
 		this.powerState = state;
 	}
 
@@ -86,6 +86,7 @@ class MockButtonService implements IButtonService
 	
 	public SetFanMode(mode: FanMode)
 	{
+		this.$log.debug("SetFanMode: transitioning to " + mode);
 		this.fanMode = mode;
 	}
 }
