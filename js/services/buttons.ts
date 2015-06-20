@@ -14,19 +14,45 @@ class Button
 	public Label: string;
 }
 
+/**
+ * Service for pushing virtual buttons.
+ */
 interface IButtonService
 {
+	/**
+	 * Gets the button definitions.
+	 */
 	GetButtons(): Button[];
 	
+	/**
+	 * Sends a button-push command.
+	 */
 	PushButton(button: Button): void;
 	
+	/**
+	 * Gets the unit's current power state.
+	 */
 	GetPowerState() : boolean;
+	
+	/**
+	 * Sets the new power state for the unit.
+	 */
 	SetPowerState(boolean);
 
+	/**
+	 * Gets the unit's current fan mode.
+	 */
 	GetFanMode() : FanMode;
+	
+	/**
+	 * Sets the new fan mode for the unit.
+	 */
 	SetFanMode(FanMode);
 }
 
+/**
+ * A button service which only pretends to work.
+ */
 class MockButtonService implements IButtonService
 {
 	private $log : ng.ILogService;
@@ -77,6 +103,7 @@ class MockButtonService implements IButtonService
 	{
 		this.$log.debug("SetPowerState: transitioning to " + state);
 		this.powerState = state;
+		// TODO push power button
 	}
 
 	public GetFanMode() : FanMode
@@ -88,6 +115,7 @@ class MockButtonService implements IButtonService
 	{
 		this.$log.debug("SetFanMode: transitioning to " + mode);
 		this.fanMode = mode;
+		// TODO push appropriate button
 	}
 }
 

@@ -48,7 +48,7 @@ class ControllerController
 		this._scope.PushButton = n => this.PushButton(self, n);
 		
 		this._scope.$watch(s => (<IControllerScope>s).ControlState.Power, (n, o, s) => buttonService.SetPowerState(n));
-	
+
 		this._scope.$watch(s => (<IControllerScope>s).ControlState.Mode, (n, o, s) => buttonService.SetFanMode(n));
 	}
 	
@@ -62,27 +62,3 @@ class ControllerController
 }
 
 angular.module("IRControlApp").controller("ControllerController", ["$scope", "IRButtons", ControllerController]);
-
-/*angular.module("IRControlApp").controller("ControllerController", ["$scope", "IRButtons",
-function($scope: IControllerScope, buttonService: IButtonService)
-{
-	var buttonRecords = buttonService.GetButtons();
-
-	$scope.Buttons = {};
-
-	angular.forEach(buttonRecords, (br : Button) =>
-	{
-		$scope.Buttons[br.Id] = br;
-	});
-
-	$scope.ControlState = { Power: buttonService.GetPowerState(), Mode: buttonService.GetFanMode() };
-	
-	$scope.$watch(s => (<IControllerScope>s).ControlState.Power, (n, o, s) => buttonService.SetPowerState(n));
-	
-	$scope.$watch(s => (<IControllerScope>s).ControlState.Mode, (n, o, s) => buttonService.SetFanMode(n));
-	
-	$scope.PushButton = (name: string) =>
-	{
-		buttonService.PushButton($scope.Buttons[name])
-	};
-}]);*/
