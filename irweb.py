@@ -1,6 +1,6 @@
 # Web frontend. This must be configured at the root of the application.
 
-from flask import Flask, Response, jsonify, g, request
+from flask import Flask, Response, jsonify, g, request, make_response
 from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
 
@@ -67,6 +67,14 @@ def press_button():
         return jsonify(success=False, message="An error occurred while sending the IR command: {0}".format(e.args[0])), 500
     except Exception as e:
         return jsonify(success=False, message="An unknown error occurred while sending the IR command: {0}".format(str(e))), 500
+
+@app.route("/status/image")
+def current_image():
+    response = Response()
+    response.content_type = "image/jpeg"
+    # TODO cache_control, max age 30 seconds?
+    response.data = bytes()
+    return response
 
 if __name__ == "__main__":
     app.run("localhost", 8888, True)
