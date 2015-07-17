@@ -1,6 +1,6 @@
 # Web frontend. This must be configured at the root of the application.
 
-from flask import Flask, Response, jsonify, g, request, make_response
+from flask import Flask, Response, jsonify, g, request, make_response, redirect
 from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
 
@@ -75,6 +75,16 @@ def current_image():
     # TODO cache_control, max age 30 seconds?
     response.data = bytes()
     return response
+
+
+# Bit of a hack to enforce the client seeing the static page, because the web server hands everything under the path to this script
+@app.route("/")
+def index():
+    return redirect("/index.html", 301)
+
+@app.errorhandler(404)
+def not_found(error):
+    return "not found!", 404
 
 if __name__ == "__main__":
     app.run("localhost", 8888, True)
