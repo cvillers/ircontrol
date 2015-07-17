@@ -1,6 +1,7 @@
 # Web frontend. This must be configured at the root of the application.
 
 from flask import Flask, Response, jsonify, g, request, make_response, redirect
+from io import StringIO
 from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
 
@@ -84,7 +85,13 @@ def index():
 
 @app.errorhandler(404)
 def not_found(error):
-    return "not found!", 404
+    buf = StringIO()
+    buf.write("not found!\n<br/><br/>\n")
+
+    for k, v in sorted(request.environ.items()):
+        print("{0}={1}<br/>\n".format(k, v), file=buf)
+
+    return buf.getvalue(), 404
 
 if __name__ == "__main__":
     app.run("localhost", 8888, True)
