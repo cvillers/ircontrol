@@ -16,7 +16,28 @@ class JinjaOverrideFlask(Flask):
         comment_end_string='#>',
     ))
 
+class ScriptPathFixer:
+    """
+    WSGI middleware which fixes PATH_INFO to not include the same prefix which is the SCRIPT_NAME.
+    """
+    def __init__(self, app):
+        self._app = app
+
+    def __call__(self, environ, start_response):
+        script_name = environ.get('SCRIPT_NAME', '')
+        if script_name:
+            environ['SCRIPT_NAME'] = script_name
+            path_info = environ['PATH_INFO']
+            if path_info.startswith(script_name):
+                environ['PATH_INFO'] = path_info[len(script_name):]
+
+        #scheme = environ.get('HTTP_X_SCHEME', '')
+        #if scheme:
+        #    environ['wsgi.url_scheme'] = scheme
+        return self._app(environ, start_response)
+
 app = JinjaOverrideFlask(__name__, static_folder="public", template_folder="templates")
+app.wsgi_app = ScriptPathFixer(app.wsgi_app)
 
 @app.route("/api/buttons")
 def get_buttons():
@@ -81,7 +102,7 @@ def current_image():
 # Bit of a hack to enforce the client seeing the static page, because the web server hands everything under the path to this script
 @app.route("/")
 def index():
-    return redirect("/index.html", 301)
+    return redirect("/public/index.html", 301)
 
 @app.errorhandler(404)
 def not_found(error):
