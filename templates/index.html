@@ -5,6 +5,11 @@
 			<# This is not really great, but it's functional #>
 			var APP_GLOBAL_CONFIG =
 			{
+				API: {
+					GetButtons: "<<url_for('get_buttons')>>",
+					PostButtonPress: "<<url_for('press_button')>>",
+					GetCurrentImage: "<<url_for('current_image')>>"
+				},
 				TemplatePrefix: "<<url_for('static', filename='templates')>>"
 			};
 		</script>

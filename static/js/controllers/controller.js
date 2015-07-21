@@ -10,11 +10,11 @@ var ControllerController = (function () {
         //this._buttons = buttonService.GetButtons();
         this._buttonMap = {};
         this._buttonService.GetButtons().then(function (buttons) {
-            _this._buttons = buttons;
-            angular.forEach(_this._buttons, function (br) {
-                _this._buttonMap[br.Id] = br;
+            self._buttons = buttons;
+            angular.forEach(self._buttons, function (br) {
+                self._buttonMap[br.Id] = br;
             });
-            _this._scope.Buttons = _this._buttonMap;
+            self._scope.Buttons = self._buttonMap;
         }, function (reason) {
             // TODO display error to user
             _this._scope.Buttons = {};
@@ -40,4 +40,3 @@ var ControllerController = (function () {
     return ControllerController;
 })();
 angular.module("IRControlApp").controller("ControllerController", ["$scope", "$log", "IRButtons", ControllerController]);
-//# sourceMappingURL=controller.js.map

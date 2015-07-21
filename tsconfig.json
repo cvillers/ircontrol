@@ -2,6 +2,6 @@
 	"compilerOptions": {
 		"target": "ES3",
 		"module": "commonjs",
-		"sourceMap": true
+		"sourceMap": false
 	}
 }

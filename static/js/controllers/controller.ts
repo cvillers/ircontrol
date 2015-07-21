@@ -8,7 +8,7 @@ Controller for the main button-pusher.
 interface IControllerScope extends ng.IScope
 {
 	ControlState: {
-		Power: boolean,
+		Power: boolean;
 		Mode: FanMode
 	};
 	Buttons: { [ id: string ]: Button };
@@ -37,12 +37,12 @@ class ControllerController
 		this._buttonMap = {};
 		this._buttonService.GetButtons().then(buttons =>
 			{
-				this._buttons = buttons;
-				angular.forEach(this._buttons, (br : Button) =>
+				self._buttons = buttons;
+				angular.forEach(self._buttons, (br : Button) =>
 				{
-					this._buttonMap[br.Id] = br;
+					self._buttonMap[br.Id] = br;
 				});
-				this._scope.Buttons = this._buttonMap;
+				self._scope.Buttons = self._buttonMap;
 			},
 			reason =>
 			{

@@ -1,4 +1,5 @@
 /// <reference path="../angular.d.ts" />
+/// <reference path="../ircontrol.d.ts" />
 var FanMode;
 (function (FanMode) {
     FanMode[FanMode["Unknown"] = 0] = "Unknown";
@@ -99,19 +100,24 @@ var MockButtonService = (function () {
  * A button service which is fully dependent on the remote server for the definitions.
  */
 var ServerButtonService = (function () {
-    function ServerButtonService() {
-    }
-    ServerButtonService.prototype.ServerButtonService = function (logService, httpService, qService) {
+    function ServerButtonService(logService, httpService, qService) {
+        //console.debug("got " + logService + " " + httpService + " " + qService);
         this._log = logService;
         this._http = httpService;
         this._q = qService;
-    };
+    }
     /**
      * Gets the button definitions.
      */
     ServerButtonService.prototype.GetButtons = function () {
-        //this._http.get
-        return null;
+        var future = this._q.defer();
+        this._http.get(APP_GLOBAL_CONFIG.API.GetButtons).success(function (res) {
+            //if(res.)
+            future.resolve(res.buttons);
+        }).error(function (res) {
+            future.reject(res);
+        });
+        return future.promise;
     };
     /**
      * Sends a button-push command.
@@ -143,6 +149,5 @@ var ServerButtonService = (function () {
     };
     return ServerButtonService;
 })();
-angular.module("IRControlApp").service("IRButtons", ["$log", "$q", "$timeout", MockButtonService]);
-//angular.module("IRControlApp").service("IRButtons", ["$http", "$log", ServerButtonService]); 
-//# sourceMappingURL=buttons.js.map
+//angular.module("IRControlApp").service("IRButtons", ["$log", "$q", "$timeout", MockButtonService]);
+angular.module("IRControlApp").service("IRButtons", ["$log", "$http", "$q", ServerButtonService]);

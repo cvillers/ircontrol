@@ -1,4 +1,5 @@
 /// <reference path="../angular.d.ts" />
+/// <reference path="../ircontrol.d.ts" />
 
 enum FanMode
 {
@@ -177,8 +178,9 @@ class ServerButtonService implements IButtonService
 	private _http: ng.IHttpService;
 	private _q: ng.IQService;
 
-	public ServerButtonService(logService: ng.ILogService, httpService: ng.IHttpService, qService: ng.IQService)
+	public constructor(logService: ng.ILogService, httpService: ng.IHttpService, qService: ng.IQService)
 	{
+		//console.debug("got " + logService + " " + httpService + " " + qService);
 		this._log = logService;
 		this._http = httpService;
 		this._q = qService;
@@ -189,8 +191,19 @@ class ServerButtonService implements IButtonService
 	 */
 	public GetButtons(): ng.IPromise<Button[]>
 	{
-		//this._http.get
-		return null;
+		var future = this._q.defer<Button[]>();
+		this._http.get<GetButtonsResult>(APP_GLOBAL_CONFIG.API.GetButtons)
+			.success(res =>
+			{
+				//if(res.)
+				future.resolve(res.buttons);
+			})
+			.error(res =>
+			{
+				future.reject(res);
+			});
+
+		return future.promise;
 	}
 	
 	/**
@@ -234,5 +247,5 @@ class ServerButtonService implements IButtonService
 	}
 }
 
-angular.module("IRControlApp").service("IRButtons", ["$log", "$q", "$timeout", MockButtonService]);
-//angular.module("IRControlApp").service("IRButtons", ["$http", "$log", ServerButtonService]);
+//angular.module("IRControlApp").service("IRButtons", ["$log", "$q", "$timeout", MockButtonService]);
+angular.module("IRControlApp").service("IRButtons", ["$log", "$http", "$q", ServerButtonService]);
