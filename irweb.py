@@ -97,11 +97,9 @@ def current_image():
     response.content_type = "image/jpeg"
     # TODO cache_control, max age 30 seconds?
     cmd = "/usr/bin/fswebcam -d /dev/video0 -F 1 -r 640x480 --no-banner"
-    process = Popen(cmd, stdout=PIPE)
-    rc = process.wait()
-    if rc == 0:
-        stdout, stderr = process.communicate()
-        response.data = stdout
+    process = Popen(cmd.split(" "), stdout=PIPE)
+    stdout, stderr = process.communicate()
+    response.data = stdout
     return response
 
 
