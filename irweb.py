@@ -65,7 +65,7 @@ def press_button():
     :rtype: Response
     :return: The JSON result.
     """
-    name = request.form.get("name")
+    name = request.json.get("name")
 
     if not name:
         return jsonify(success=False, message="Name not specified"), 400

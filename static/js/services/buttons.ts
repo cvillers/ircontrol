@@ -195,7 +195,6 @@ class ServerButtonService implements IButtonService
 		this._http.get<GetButtonsResult>(APP_GLOBAL_CONFIG.API.GetButtons)
 			.success(res =>
 			{
-				//if(res.)
 				future.resolve(res.buttons);
 			})
 			.error(res =>
@@ -211,7 +210,20 @@ class ServerButtonService implements IButtonService
 	 */
 	public PushButton(button: Button): ng.IPromise<void>
 	{
-		return this._q.when<void>(null);
+		var future = this._q.defer<void>();
+		//var data = "name=" + encodeURIComponent(button.Id);
+		var data = { name: button.Id };
+		this._http.post<PushButtonResult>(APP_GLOBAL_CONFIG.API.PostButtonPress, data)
+			.success(res =>
+			{
+				future.resolve();
+			})
+			.error(res =>
+			{
+				future.reject(res);
+			});
+
+		return future.promise;
 	}
 	
 	/**

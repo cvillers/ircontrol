@@ -112,7 +112,6 @@ var ServerButtonService = (function () {
     ServerButtonService.prototype.GetButtons = function () {
         var future = this._q.defer();
         this._http.get(APP_GLOBAL_CONFIG.API.GetButtons).success(function (res) {
-            //if(res.)
             future.resolve(res.buttons);
         }).error(function (res) {
             future.reject(res);
@@ -123,7 +122,15 @@ var ServerButtonService = (function () {
      * Sends a button-push command.
      */
     ServerButtonService.prototype.PushButton = function (button) {
-        return this._q.when(null);
+        var future = this._q.defer();
+        //var data = "name=" + encodeURIComponent(button.Id);
+        var data = { name: button.Id };
+        this._http.post(APP_GLOBAL_CONFIG.API.PostButtonPress, data).success(function (res) {
+            future.resolve();
+        }).error(function (res) {
+            future.reject(res);
+        });
+        return future.promise;
     };
     /**
      * Gets the unit's current power state.
