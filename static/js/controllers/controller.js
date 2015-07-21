@@ -34,7 +34,9 @@ var ControllerController = (function () {
         self._buttonService.PushButton(this._buttonMap[name]).then(function (v) {
             _this._log.info("Pushed button " + name + " successfully");
         }, function (reason) {
-            _this._log.warn("Could not push button " + name + ": " + reason);
+            var msg = "Could not push button " + name + ": " + reason;
+            alert(msg);
+            _this._log.warn(msg);
         });
     };
     return ControllerController;

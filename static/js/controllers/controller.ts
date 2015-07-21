@@ -72,7 +72,9 @@ class ControllerController
 			},
 			reason =>
 			{
-				this._log.warn("Could not push button " + name + ": " + reason);
+				var msg = "Could not push button " + name + ": " + reason;
+				alert(msg);
+				this._log.warn(msg);
 			});
 	}
 }
