@@ -4,6 +4,7 @@ from flask import Flask, Response, jsonify, g, request, make_response, redirect,
 from io import StringIO
 from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
+from subprocess import PIPE, Popen
 
 class JinjaOverrideFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
@@ -95,7 +96,12 @@ def current_image():
     response = Response()
     response.content_type = "image/jpeg"
     # TODO cache_control, max age 30 seconds?
-    response.data = bytes()
+    cmd = "/usr/bin/fswebcam -d /dev/video0 -F 1 -r 640x480 --no-banner"
+    process = Popen(cmd, stdout=PIPE)
+    rc = process.wait()
+    if rc == 0:
+        stdout, stderr = process.communicate()
+        response.data = stdout
     return response
 
 
