@@ -7,33 +7,34 @@
 		</md-switch>
 	</section>
 	<section layout="row" layout-align="center center">
-		<div class="label">Ranges</div>
-		
+		<div class="label">Fan/Temperature</div>
+
 		<div layout="column" layout-align="space-around center">
-			<md-button class="md-raised" ng-click="PushButton('FanUp')" ng-disabled="!ControlState.Power">{{Buttons['FanUp'].Label}}</md-button>
-			<md-button class="md-raised" ng-click="PushButton('FanDown')" ng-disabled="!ControlState.Power">{{Buttons['FanDown'].Label}}</md-button>
-		</div>
-		
-		<div layout="column" layout-align="space-around center">
-			<md-button class="md-raised" ng-click="PushButton('TempTimerUp')" ng-disabled="!ControlState.Power">{{Buttons['TempTimerUp'].Label}}</md-button>
-			<md-button class="md-raised" ng-click="PushButton('TempTimerDown')" ng-disabled="!ControlState.Power">{{Buttons['TempTimerDown'].Label}}</md-button>
+			<div layout="row" layout-align="space-around center">
+				<div layout="column" layout-align="space-around center">
+					<md-button class="md-raised" ng-click="PushButton('FanUp')" ng-disabled="!ControlState.Power">{{Buttons['FanUp'].Label}}</md-button>
+					<md-button class="md-raised" ng-click="PushButton('FanDown')" ng-disabled="!ControlState.Power">{{Buttons['FanDown'].Label}}</md-button>
+				</div>
+
+				<div layout="column" layout-align="space-around center">
+					<md-button class="md-raised" ng-click="PushButton('TempTimerUp')" ng-disabled="!ControlState.Power">{{Buttons['TempTimerUp'].Label}}</md-button>
+					<md-button class="md-raised md-warn" ng-click="PushButton('TempTimerDown')" ng-disabled="!ControlState.Power">{{Buttons['TempTimerDown'].Label}}</md-button>
+				</div>
+			</div>
+			<div layout="row" layout-align="space-around center">
+				<md-button class="md-raised md-primary" ng-click="PushButton('AutoFan')" ng-disabled="!ControlState.Power">{{Buttons['AutoFan'].Label}}</md-button>
+			</div>
 		</div>
 	</section>
 	
 	<!-- TODO turn these into buttons? -->
 	<section layout="row" layout-align="center center">
 		<div class="label">Mode</div>
-		
-		<md-radio-group ng-model="ControlState.Mode">
-			<md-radio-button ng-value="'Cool'" ng-disabled="!ControlState.Power">
-				{{Buttons['Cool'].Label}}
-			</md-radio-button>
-			<md-radio-button ng-value="'EnergySaver'" ng-disabled="!ControlState.Power">
-				{{Buttons['EnergySaver'].Label}}
-			</md-radio-button>
-			<md-radio-button ng-value="'Fan'" ng-disabled="!ControlState.Power">
-				{{Buttons['FanOnly'].Label}}
-			</md-radio-button>
-		</md-radio-group>
+
+		<div layout="column" layout-align="space-around center">
+			<md-button class="md-raised md-warn" ng-disabled="!ControlState.Power" ng-click="PushButton('Cool')">{{Buttons['Cool'].Label}}</md-button>
+			<md-button class="md-raised md-primary" ng-disabled="!ControlState.Power" ng-click="PushButton('EnergySaver')">{{Buttons['EnergySaver'].Label}}</md-button>
+			<md-button class="md-raised" ng-disabled="!ControlState.Power" ng-click="PushButton('FanOnly')">{{Buttons['FanOnly'].Label}}</md-button>
+		</div>
 	</section>
 </md-content>
