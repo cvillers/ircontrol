@@ -1,6 +1,6 @@
 # Web frontend. This must be configured at the root of the application.
 
-from flask import Flask, Response, jsonify, g, request, make_response, redirect
+from flask import Flask, Response, jsonify, g, request, make_response, redirect, render_template, url_for
 from io import StringIO
 from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
@@ -26,7 +26,7 @@ class ScriptPathFixer:
     def __call__(self, environ, start_response):
         script_name = environ.get('SCRIPT_NAME', '')
         if script_name:
-            environ['SCRIPT_NAME'] = script_name
+            #environ['SCRIPT_NAME'] = script_name
             path_info = environ['PATH_INFO']
             if path_info.startswith(script_name):
                 environ['PATH_INFO'] = path_info[len(script_name):]
@@ -36,7 +36,7 @@ class ScriptPathFixer:
         #    environ['wsgi.url_scheme'] = scheme
         return self._app(environ, start_response)
 
-app = JinjaOverrideFlask(__name__, static_folder="public", template_folder="templates")
+app = JinjaOverrideFlask(__name__, static_folder="static", template_folder="templates")
 app.wsgi_app = ScriptPathFixer(app.wsgi_app)
 
 @app.route("/api/buttons")
@@ -102,7 +102,8 @@ def current_image():
 # Bit of a hack to enforce the client seeing the static page, because the web server hands everything under the path to this script
 @app.route("/")
 def index():
-    return redirect("/public/index.html", 301)
+    return render_template("index.html")
+    #return redirect("/public/index.html", 301)
 
 @app.errorhandler(404)
 def not_found(error):

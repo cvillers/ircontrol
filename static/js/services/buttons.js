@@ -36,7 +36,7 @@ var MockButtonService = (function () {
         this.$q = qService;
         this.$timeout = timeoutService;
         this.powerState = false;
-        this.fanMode = FanMode.Fan;
+        this.fanMode = 3 /* Fan */;
     }
     MockButtonService.prototype.GetButtons = function () {
         return this.$q.when([
@@ -61,7 +61,8 @@ var MockButtonService = (function () {
     MockButtonService.prototype.PushButton = function (button) {
         this.$log.info("Push button " + button.Label);
         var future = this.$q.defer();
-        this.$timeout(function () { }, (Math.random() + 0.01) * 5).then(function () {
+        this.$timeout(function () {
+        }, (Math.random() + 0.01) * 5).then(function () {
             if (Math.random() < 0.25) {
                 var result = new PushButtonResult();
                 result.success = false;

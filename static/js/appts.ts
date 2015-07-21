@@ -26,7 +26,7 @@ app.config(["$routeProvider", function($routeProvider: ng.route.IRouteProvider)
 	{
 		$routeProvider.when("/" + link.URL,
 			{
-				templateUrl: "templates/" + link.Template,
+				templateUrl: APP_GLOBAL_CONFIG.TemplatePrefix + "/" + link.Template,
 				controller: link.Controller,
 				resolve: { PageDefinition: function() { return link } }
 			});
