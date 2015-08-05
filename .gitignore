@@ -1,3 +1,4 @@
 .idea
 *.pyc
 .settings/*
+static/node_modules/*
