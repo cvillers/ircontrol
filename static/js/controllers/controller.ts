@@ -73,7 +73,7 @@ class ControllerController
 			reason =>
 			{
 				var msg = "Could not push button " + name + ": " + reason;
-				alert(msg);
+				alert(angular.toJson(msg));
 				this._log.warn(msg);
 			});
 	}

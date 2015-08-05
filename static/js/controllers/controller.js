@@ -35,7 +35,7 @@ var ControllerController = (function () {
             _this._log.info("Pushed button " + name + " successfully");
         }, function (reason) {
             var msg = "Could not push button " + name + ": " + reason;
-            alert(msg);
+            alert(angular.toJson(msg));
             _this._log.warn(msg);
         });
     };
