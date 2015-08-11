@@ -6,6 +6,8 @@ from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
 from subprocess import PIPE, Popen
 
+SITE_CONFIG = {"MIN_JS": False, "MIN_CSS": False}  # !!! These booleans must match the release value in gulpfile.config.js !!!
+
 class JinjaOverrideFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
     jinja_options.update(dict(
@@ -106,7 +108,7 @@ def current_image():
 # Bit of a hack to enforce the client seeing the static page, because the web server hands everything under the path to this script
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", site_config=SITE_CONFIG)
     #return redirect("/public/index.html", 301)
 
 @app.errorhandler(404)
