@@ -2,5 +2,5 @@
 *.pyc
 .settings/*
 static/node_modules/*
-#static/debug/*
-#static/release/*
+static/debug/*
+static/release/*
