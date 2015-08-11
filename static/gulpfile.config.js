@@ -1,7 +1,7 @@
 'use strict';
 var GulpConfig = (function () {
     function GulpConfig() {
-        this.release = false;
+        this.release = true;
 
         this.source = '.';
         this.sourceApp = this.source + "/js";

@@ -6,7 +6,7 @@ from ircore import ac_buttons, Button
 from lirc.client import LircRemote, LircError
 from subprocess import PIPE, Popen
 
-SITE_CONFIG = {"MIN_JS": False, "MIN_CSS": False}  # !!! These booleans must match the release value in gulpfile.config.js !!!
+SITE_CONFIG = {"MIN_JS": True, "MIN_CSS": True}  # !!! These booleans must match the release value in gulpfile.config.js !!!
 
 class JinjaOverrideFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
